@@ -29,14 +29,15 @@ ast[0] = {
   y: 100
 }
 
-var shoot = [];
-shoot[0] = {
-  x: xPos,
-  y: yPos
-}
-
 var xPos = 100;
 var yPos = 150;
+
+var shoot = [];
+shoot[0] = {
+  x: xPos ,
+  y: yPos+ 17
+}
+
 
 function draw() {
  ctx.drawImage(bg, 0, 0);
@@ -44,17 +45,35 @@ function draw() {
 for(var i=0; i<ast.length; i++){
   ctx.drawImage(asteroid,ast[i].x, ast[i].y)
   ast[i].x--;
-
 //var pos = Math.floor(Math.random()*cvs.width)
-
 if (ast[i].x == 400){
  ast.push({
    x: cvs.width,
    y: Math.floor(Math.random()*cvs.height)
  });
+}
 
+if (xPos + shuttle.width >= ast[i].x &&
+   xPos < ast[i].x + asteroid.height &&
+   yPos + shuttle.height >= ast[i].y &&
+    yPos <= ast[i].y + asteroid.height) {
+  location.reload()
 }
 }
+
+for(var i=0; i<shoot.length; i++){
+  ctx.drawImage(fireball,shoot[i].x, shoot[i].y)
+  shoot[i].x++;
+
+  if (shoot[i].x == 120){
+   shoot.push({
+     x: xPos,
+     y: yPos + 17
+   });
+  }
+
+ }
+
 
 ctx.drawImage(shuttle, xPos, yPos);
 
