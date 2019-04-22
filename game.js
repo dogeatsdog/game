@@ -16,6 +16,7 @@ exploded.src = 'img/fireball.png'
 
 
 document.addEventListener("keydown", move);
+document.addEventListener("click", fire);
 
 function move(event) {
   if (event.key === 'ArrowUp'){
@@ -46,16 +47,22 @@ var xPos = 100;
 var yPos = 150;
 
 var shoot = [];
-shoot[0] = {
-  x: xPos,
-  y: yPos+ 17
-}
+
+
 function newAsteroid(){
 ast.push({
   x: cvs.width,
   y: Math.floor(Math.random()*cvs.height)
 });
 console.log(ast)
+}
+
+function fire(){
+  shoot.push({
+    x: xPos + 41,
+    y: yPos + 17
+  });
+
 }
 
 function draw() {
@@ -65,12 +72,6 @@ function draw() {
    ctx.drawImage(fireball,shoot[i].x, shoot[i].y)
    shoot[i].x++;
 
-   if (shoot[i].x == 120){
-    shoot.push({
-      x: xPos,
-      y: yPos + 17
-    });
-   }
 
   }
 
@@ -93,11 +94,7 @@ for(var j=0; j<shoot.length;j++){
       ast[i].x = - 100 }
 
 }
-
 }
-
-
-
 ctx.drawImage(shuttle, xPos, yPos);
 
 requestAnimationFrame(draw);
