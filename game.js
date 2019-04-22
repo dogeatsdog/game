@@ -50,7 +50,13 @@ shoot[0] = {
   x: xPos,
   y: yPos+ 17
 }
-
+function newAsteroid(){
+ast.push({
+  x: cvs.width,
+  y: Math.floor(Math.random()*cvs.height)
+});
+console.log(ast)
+}
 
 function draw() {
  ctx.drawImage(bg, 0, 0);
@@ -66,23 +72,12 @@ function draw() {
     });
    }
 
-  
-
   }
-
-
 
 for(var i=0; i<ast.length; i++){
   ctx.drawImage(asteroid,ast[i].x, ast[i].y)
   ast[i].x--;
 var pos = Math.floor(Math.random()*cvs.width)
-if (ast[i].x == 400){
- ast.push({
-   x: cvs.width,
-   y: Math.floor(Math.random()*cvs.height)
- });
- console.log(ast)
-}
 
 if (xPos + shuttle.width >= ast[i].x &&
    xPos < ast[i].x + asteroid.height &&
@@ -95,7 +90,7 @@ for(var j=0; j<shoot.length;j++){
      shoot[j].x  < ast[i].x + asteroid.height &&
      shoot[j].y + fireball.height >= ast[i].y &&
       shoot[j].y <= ast[i].y + asteroid.height) {
-      ast.splice(i,1) }
+      ast[i].x = - 100 }
 
 }
 
@@ -109,3 +104,4 @@ requestAnimationFrame(draw);
 }
 
 asteroid.onload = draw;
+setInterval(newAsteroid,3000)
